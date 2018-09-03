@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.dto;
 
 import java.util.LinkedList;
 
