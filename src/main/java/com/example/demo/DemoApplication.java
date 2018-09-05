@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 import com.example.utils.CachePlayground;
+import com.example.utils.StackPlayground;
 
 @SpringBootApplication
 @EnableCaching
@@ -20,5 +21,10 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
+		
+		StackPlayground sp = new StackPlayground(10);
+		sp.push(12);
+		sp.push(10);
+		System.out.println(sp.peek());
 	}
 }
