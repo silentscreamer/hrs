@@ -16,14 +16,8 @@ import com.example.utils.CachePlayground;
 @Controller
 public class UserController {
 	private final Logger log = LoggerFactory.getLogger(getClass());
-
-	@Autowired
-	private UserRepository userRepository;
 	
-	@Autowired
-	private CachePlayground cp;
-	
-	@Cacheable(value = "users", key = "#userId", unless = "#result.followers < 12000")
+	/*@Cacheable(value = "users", key = "#userId", unless = "#result.followers < 12000")
 	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
 	public User getUser(@PathVariable String userId) {
 	  log.info("Getting user with ID {}.", userId);
@@ -38,5 +32,5 @@ public class UserController {
       System.out.println(cp.getContent("Infinispan"));
       
       log.info("Checking Infinispan Cache end...");
-	}
+	}*/
 }

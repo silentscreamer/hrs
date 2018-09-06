@@ -6,15 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.example.utils.CachePlayground;
 
 @SpringBootApplication
+@ComponentScan("com.example")
 @EnableCaching
 public class DemoApplication {
-	
-	@Autowired
-	CachePlayground cp;
 	
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
