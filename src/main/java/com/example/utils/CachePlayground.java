@@ -1,13 +1,11 @@
 package com.example.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CachePlayground {
 	 
-    @Autowired
+/*    @Autowired
     private CacheManager cacheManager;
 
     public void add(String key, String value) {
@@ -16,5 +14,5 @@ public class CachePlayground {
 
     public String getContent(String key) {
         return cacheManager.getCache("default").get(key).get().toString();
-    }
+    }*/
 }
