@@ -17,6 +17,10 @@ import com.example.dto.ResultObject;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
 
+/**
+ * @author salman.kazmi
+ *
+ */
 @RestController
 @RequestMapping("/api")
 public class UserController {
@@ -25,6 +29,9 @@ public class UserController {
 	UserRepository userRepository;
 
 	// Get All Users
+	/**
+	 * @return
+	 */
 	@GetMapping("/users")
 	public ResultObject getAllUsers() {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
@@ -33,6 +40,10 @@ public class UserController {
 	}
 
 	// Create a new User
+	/**
+	 * @param user
+	 * @return
+	 */
 	@PostMapping("/user")
 	public ResultObject createUser(@Valid @RequestBody User user) {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
@@ -41,6 +52,10 @@ public class UserController {
 	}
 
 	// Get a Single User
+	/**
+	 * @param userId
+	 * @return
+	 */
 	@GetMapping("/user/{id}")
 	public ResultObject getUser(@PathVariable(value = "id") Long userId) {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
@@ -49,6 +64,10 @@ public class UserController {
 	}
 
 	// Update a User
+	/**
+	 * @param user
+	 * @return
+	 */
 	@PutMapping("/user/{id}")
 	public ResultObject updateUser(@RequestBody User user) {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
@@ -57,6 +76,10 @@ public class UserController {
 	}
 
 	// Delete a User
+	/**
+	 * @param userId
+	 * @return
+	 */
 	@DeleteMapping("/user/{id}")
 	public ResultObject deleteUser(@PathVariable(value = "id") Long userId) {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
