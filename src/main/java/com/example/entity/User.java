@@ -17,13 +17,14 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.example.dto.BaseDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name="user")
 @JsonIgnoreProperties(value = {"createdOn", "updatedOn"}, allowGetters = true)
-public class User {
+public class User extends BaseDto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

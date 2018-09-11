@@ -1,11 +1,8 @@
 package com.example.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.constants.ResultCode;
+import com.example.dto.ResultObject;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
 
@@ -27,33 +26,41 @@ public class UserController {
 
 	// Get All Users
 	@GetMapping("/users")
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
+	public ResultObject getAllUsers() {
+		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+		object.getData().addAll(userRepository.findAll());
+		return object;
 	}
 
 	// Create a new User
 	@PostMapping("/user")
-	public User createUser(@Valid @RequestBody User user) {
-		return userRepository.save(user);
+	public ResultObject createUser(@Valid @RequestBody User user) {
+		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+		object.getData().add(userRepository.save(user));
+		return object;
 	}
 
 	// Get a Single User
 	@GetMapping("/user/{id}")
-	public User getUser(@PathVariable(value="id") Long userId) {
-		return userRepository.findById(userId).orElse(null);
+	public ResultObject getUser(@PathVariable(value = "id") Long userId) {
+		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+		object.getData().add(userRepository.findById(userId).orElse(null));
+		return object;
 	}
 
 	// Update a User
 	@PutMapping("/user/{id}")
-	public User updateUser(@PathVariable(value="id") Long userId, 
-			@RequestBody User user) {
-		return null;
+	public ResultObject updateUser(@RequestBody User user) {
+		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+		userRepository.save(user);
+		return object;
 	}
 
 	// Delete a User
 	@DeleteMapping("/user/{id}")
-	public ResponseEntity<?> deleteNote(@PathVariable(value="id") Long userId) {
+	public ResultObject deleteUser(@PathVariable(value = "id") Long userId) {
+		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
 		userRepository.deleteById(userId);
-		return ResponseEntity.ok().build();
+		return object;
 	}
 }
