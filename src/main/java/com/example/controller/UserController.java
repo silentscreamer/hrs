@@ -2,6 +2,8 @@ package com.example.controller;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.constants.ResultCode;
 import com.example.dto.ResultObject;
 import com.example.entity.User;
-import com.example.repository.UserRepository;
+import com.example.service.UserService;
+import com.example.utils.CustomException;
 
 /**
  * @author salman.kazmi
@@ -24,9 +27,11 @@ import com.example.repository.UserRepository;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-
+	
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
+	
 	@Autowired
-	UserRepository userRepository;
+	UserService userService;
 
 	// Get All Users
 	/**
@@ -35,7 +40,7 @@ public class UserController {
 	@GetMapping("/users")
 	public ResultObject getAllUsers() {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		object.getData().addAll(userRepository.findAll());
+		object.getData().addAll(userService.getAllUsers());
 		return object;
 	}
 
@@ -46,9 +51,19 @@ public class UserController {
 	 */
 	@PostMapping("/user")
 	public ResultObject createUser(@Valid @RequestBody User user) {
-		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		object.getData().add(userRepository.save(user));
-		return object;
+		try {
+			if(userService.getUserByEmail(user.getEmail())!=null) {
+				throw new CustomException(ResultCode.USER_ALREADY_EXISTS);
+			}
+			log.info("Creating a New User");
+			return userService.createUser(user);	
+		} catch(CustomException ce) {
+			log.error("CustomException :", ce);
+			return new ResultObject(false, ce.getResultCode());
+		} catch(Exception e) {
+			log.error("Exception :", e);
+			return new ResultObject(false, ResultCode.SYSTEM_ERROR);
+		}
 	}
 
 	// Get a Single User
@@ -59,7 +74,7 @@ public class UserController {
 	@GetMapping("/user/{id}")
 	public ResultObject getUser(@PathVariable(value = "id") Long userId) {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		object.getData().add(userRepository.findById(userId).orElse(null));
+		object.getData().add(userService.getUser(userId));
 		return object;
 	}
 
@@ -70,9 +85,7 @@ public class UserController {
 	 */
 	@PutMapping("/user/{id}")
 	public ResultObject updateUser(@RequestBody User user) {
-		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		userRepository.save(user);
-		return object;
+		return userService.updateUser(user);
 	}
 
 	// Delete a User
@@ -82,8 +95,6 @@ public class UserController {
 	 */
 	@DeleteMapping("/user/{id}")
 	public ResultObject deleteUser(@PathVariable(value = "id") Long userId) {
-		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		userRepository.deleteById(userId);
-		return object;
+		return userService.deleteUser(userId);
 	}
 }
