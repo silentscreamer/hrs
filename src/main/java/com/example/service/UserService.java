@@ -10,7 +10,7 @@ public interface UserService {
 	List<User> getAllUsers();
 	User getUser(Long userId);
 	ResultObject createUser(User user) throws CustomException;
-	ResultObject updateUser(User user);
+	ResultObject updateUser(User user) throws CustomException;
 	ResultObject deleteUser(Long userId);
 	User getUserByEmail(String email);
 }

@@ -37,8 +37,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResultObject updateUser(User user) {
+	public ResultObject updateUser(User user)throws CustomException {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+		if(getUser(user.getId())==null) {
+			throw new CustomException(ResultCode.USER_DOES_NOT_EXIST);
+		}
 		userRepository.save(user);
 		return object;
 	}

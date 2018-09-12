@@ -27,9 +27,9 @@ import com.example.utils.CustomException;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
-	
+
 	@Autowired
 	UserService userService;
 
@@ -52,15 +52,15 @@ public class UserController {
 	@PostMapping("/add")
 	public ResultObject createUser(@Valid @RequestBody User user) {
 		try {
-			if(userService.getUserByEmail(user.getEmail())!=null) {
+			if (userService.getUserByEmail(user.getEmail()) != null) {
 				throw new CustomException(ResultCode.USER_ALREADY_EXISTS);
 			}
 			log.info("Creating a New User");
-			return userService.createUser(user);	
-		} catch(CustomException ce) {
+			return userService.createUser(user);
+		} catch (CustomException ce) {
 			log.error("CustomException :", ce);
 			return new ResultObject(false, ce.getResultCode());
-		} catch(Exception e) {
+		} catch (Exception e) {
 			log.error("Exception :", e);
 			return new ResultObject(false, ResultCode.SYSTEM_ERROR);
 		}
@@ -85,7 +85,17 @@ public class UserController {
 	 */
 	@PutMapping("/{id}")
 	public ResultObject updateUser(@RequestBody User user) {
-		return userService.updateUser(user);
+		ResultObject object;
+		try {
+			object = userService.updateUser(user);
+		} catch (CustomException ce) {
+			log.error("CustomException :", ce);
+			return new ResultObject(false, ce.getResultCode());
+		} catch (Exception e) {
+			log.error("Exception :", e);
+			return new ResultObject(false, ResultCode.SYSTEM_ERROR);
+		}
+		return object;
 	}
 
 	// Delete a User
