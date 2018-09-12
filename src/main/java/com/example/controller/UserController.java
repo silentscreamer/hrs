@@ -25,7 +25,7 @@ import com.example.utils.CustomException;
  *
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController {
 	
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
@@ -37,7 +37,7 @@ public class UserController {
 	/**
 	 * @return
 	 */
-	@GetMapping("/users")
+	@GetMapping("/all")
 	public ResultObject getAllUsers() {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
 		object.getData().addAll(userService.getAllUsers());
@@ -49,7 +49,7 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@PostMapping("/user")
+	@PostMapping("/add")
 	public ResultObject createUser(@Valid @RequestBody User user) {
 		try {
 			if(userService.getUserByEmail(user.getEmail())!=null) {
@@ -71,7 +71,7 @@ public class UserController {
 	 * @param userId
 	 * @return
 	 */
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
 	public ResultObject getUser(@PathVariable(value = "id") Long userId) {
 		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
 		object.getData().add(userService.getUser(userId));
@@ -83,7 +83,7 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@PutMapping("/user/{id}")
+	@PutMapping("/{id}")
 	public ResultObject updateUser(@RequestBody User user) {
 		return userService.updateUser(user);
 	}
@@ -93,7 +93,7 @@ public class UserController {
 	 * @param userId
 	 * @return
 	 */
-	@DeleteMapping("/user/{id}")
+	@DeleteMapping("/{id}")
 	public ResultObject deleteUser(@PathVariable(value = "id") Long userId) {
 		return userService.deleteUser(userId);
 	}
