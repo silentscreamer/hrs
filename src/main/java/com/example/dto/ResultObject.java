@@ -9,6 +9,7 @@ import com.example.constants.ResultCode;
 
 @Component
 public class ResultObject extends BaseDto {
+	private static final long serialVersionUID = -8299137987711708619L;
 	private boolean success;
 	private ResultCode result;
 	private String message;

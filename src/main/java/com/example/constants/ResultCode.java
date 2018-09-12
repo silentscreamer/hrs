@@ -2,7 +2,12 @@ package com.example.constants;
 
 public enum ResultCode {
 
-	SUCCESS("Success", 0), ERROR("Error", 1);
+	SUCCESS("Success", 0), 
+	ERROR("Error", 1),
+	SYSTEM_ERROR("A System Error Occured", 2),
+	USER_ALREADY_EXISTS("A User with this email alreay exists.", 3),
+	USER_DOES_NOT_EXIST("Specified User does not Exist", 4),
+	ORGANIZATION_DOES_NOT_EXIST("Specified Organization does not Exist", 5);
 
 	private String message;
 	private Integer code;
