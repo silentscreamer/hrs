@@ -8,6 +8,8 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -113,10 +115,16 @@ public class UserController {
 		return userService.deleteUser(userId);
 	}
 	
-	@PostMapping("/uploadProfilePic")
-	public ObjectId uploadProfilePic( @RequestParam MultipartFile file) throws IOException{
-		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		return userService.uploadProfilePic(file);
+	@PostMapping("/uploadProfilePic/{id}")
+	public ResultObject uploadProfilePic( @RequestParam MultipartFile file,
+			@PathVariable(value="id") Long userId) throws IOException{
+		return userService.uploadProfilePic(file,userId);
+	}
+	@GetMapping("/getPic/{id}")
+	public byte[] getProfilePic(@PathVariable(value="id") Long userId){
+		ResultObject object;
+		
+		return userService.getProfilePic(userId);
 	}
 	
 	}

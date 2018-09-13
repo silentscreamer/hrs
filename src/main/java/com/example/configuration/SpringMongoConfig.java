@@ -2,16 +2,18 @@ package com.example.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 
 import com.mongodb.MongoClient;
 
+@Configuration
 public class SpringMongoConfig extends AbstractMongoConfiguration{
-	@Value("${spring.data.mongodb.host}")
+	@Value("localhost:27017")
 	private String mongoAddress; 
 	
-	@Value("${spring.data.mongodb.database}")
+	@Value("test_db")
 	private String mongoDatabase;
 	
 	@Bean

@@ -51,7 +51,6 @@ public class User extends BaseDto {
 	@NotNull
 	private String password;
 	@Column(name="organization_id")
-	@NotNull
 	private Long organizationId;
 	@Column(name="profile_pic_id")
 	private String profilePicId;
@@ -66,6 +65,8 @@ public class User extends BaseDto {
     @LastModifiedDate
 	private Date updatedOn;
 	private int updated_by;
+	@Column(name="picId")
+	private String pic_Id;
 	
 	public User() {}
 	
@@ -188,4 +189,13 @@ public class User extends BaseDto {
 	public void setUpdated_by(int updated_by) {
 		this.updated_by = updated_by;
 	}
+
+	public String getPic_Id() {
+		return pic_Id;
+	}
+
+	public void setPic_Id(String pic_Id) {
+		this.pic_Id = pic_Id;
+	}
+	
 }
