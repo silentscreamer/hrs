@@ -1,16 +1,29 @@
 package com.example.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.convert.MongoConverter;
+import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.configuration.SpringMongoConfig;
 import com.example.constants.ResultCode;
 import com.example.dto.ResultObject;
 import com.example.entity.User;
+import com.example.repository.MongoRepo;
 import com.example.repository.UserRepository;
 import com.example.service.UserService;
 import com.example.utils.CustomException;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -56,6 +69,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserByEmail(String email) {
 		return userRepository.getUserByEmail(email);
+	}
+
+	@Override
+	public ObjectId uploadProfilePic(MultipartFile file) throws IOException {
+		ApplicationContext ctx = 
+                new AnnotationConfigApplicationContext(SpringMongoConfig.class);
+	MongoOperations mongoOperation = 
+                (MongoOperations) ctx.getBean("gridFsTemplate");
+         mongoOperation.save(file, "test_db");
+		return null;
 	}
 
 }

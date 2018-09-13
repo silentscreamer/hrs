@@ -54,7 +54,7 @@ public class User extends BaseDto {
 	@NotNull
 	private Long organizationId;
 	@Column(name="profile_pic_id")
-	private Long profilePicId;
+	private String profilePicId;
 	@Column(name="created_on", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
@@ -149,11 +149,11 @@ public class User extends BaseDto {
 		this.password = password;
 	}
 
-	public Long getProfilePicId() {
+	public String getProfilePicId() {
 		return profilePicId;
 	}
 
-	public void setProfilePicId(Long profilePicId) {
+	public void setProfilePicId(String profilePicId) {
 		this.profilePicId = profilePicId;
 	}
 
