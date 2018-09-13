@@ -187,4 +187,12 @@ public class User extends BaseDto {
 	public void setUpdated_by(int updated_by) {
 		this.updated_by = updated_by;
 	}
+
+	public Long getOrganizationId() {
+		return organizationId;
+	}
+
+	public void setOrganizationId(Long organizationId) {
+		this.organizationId = organizationId;
+	}
 }

@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService {
 		return userRepository.getUserByEmail(email);
 	}
 
+	@Override
+	public List<User> getAllUsersForAnOranization(Long organizationId) throws CustomException {
+		return userRepository.getUsersForAnOrganization(organizationId);
+	}
+
 }
