@@ -29,6 +29,12 @@ public class User extends BaseDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Column(name="title")
+	private String title;
+	@Column(name="prefix")
+	private String prefix;
+	@Column(name="suffix")
+	private String suffix;
 	@Column(name="first_name")
 	@NotNull
 	private String firstName;
@@ -40,6 +46,14 @@ public class User extends BaseDto {
 	@Column(name="email")
 	@NotNull
 	private String email;
+	@Column(name="password")
+	@NotNull
+	private String password;
+	@Column(name="organization_id")
+	@NotNull
+	private Long organizationId;
+	@Column(name="profile_pic_id")
+	private Long profilePicId;
 	@Column(name="created_on", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
@@ -68,6 +82,30 @@ public class User extends BaseDto {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public String getSuffix() {
+		return suffix;
+	}
+
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
 	}
 
 	public String getFirstName() {
@@ -100,6 +138,22 @@ public class User extends BaseDto {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Long getProfilePicId() {
+		return profilePicId;
+	}
+
+	public void setProfilePicId(Long profilePicId) {
+		this.profilePicId = profilePicId;
 	}
 
 	public Date getCreatedOn() {
