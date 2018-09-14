@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.example.constants.ResultCode;
 
 @Component
-public class ResultObject extends BaseDto {
+public class ReturnValue extends BaseDto {
 	private static final long serialVersionUID = -8299137987711708619L;
 	private boolean success;
 	private ResultCode result;
@@ -16,11 +16,11 @@ public class ResultObject extends BaseDto {
 	private Integer errorCode;
 	private List<BaseDto> data = new ArrayList<>();
 
-	public ResultObject() {
+	public ReturnValue() {
 		this.success = false;
 	}
 
-	public ResultObject(boolean success, ResultCode result) {
+	public ReturnValue(boolean success, ResultCode result) {
 		this.success = success;
 		populateMessage(result);
 	}
