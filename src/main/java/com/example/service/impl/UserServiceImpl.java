@@ -1,7 +1,6 @@
 package com.example.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -9,17 +8,13 @@ import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import com.mongodb.client.gridfs.model.GridFSFile;
-
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import com.example.constants.ResultCode;
 import com.example.dto.ResultObject;
 import com.example.entity.User;
@@ -30,59 +25,59 @@ import com.example.utils.CustomException;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	UserRepository userRepository;
-	
-	 @Autowired
+  @Autowired
+  UserRepository userRepository;
+
+  @Autowired
   GridFsTemplate gridFsTemplate;
 
 
-	@Override
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
-	}
+  @Override
+  public List<User> getAllUsers() {
+    return userRepository.findAll();
+  }
 
-	@Override
-	public User getUser(Long userId) {
-		return userRepository.findById(userId).orElse(null);
-	}
+  @Override
+  public User getUser(Long userId) {
+    return userRepository.findById(userId).orElse(null);
+  }
 
-	@Override
-	public ResultObject createUser(User user) throws CustomException{
-		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		
-		object.getData().add(userRepository.save(user));
-		return object;
-	}
+  @Override
+  public ResultObject createUser(User user) throws CustomException {
+    ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
 
-	@Override
-	public ResultObject updateUser(User user)throws CustomException {
-		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		if(getUser(user.getId())==null) {
-			throw new CustomException(ResultCode.USER_DOES_NOT_EXIST);
-		}
-		userRepository.save(user);
-		return object;
-	}
+    object.getData().add(userRepository.save(user));
+    return object;
+  }
 
-	@Override
-	public ResultObject deleteUser(Long userId) {
-		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		userRepository.deleteById(userId);
-		return object;
-	}
+  @Override
+  public ResultObject updateUser(User user) throws CustomException {
+    ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+    if (getUser(user.getId()) == null) {
+      throw new CustomException(ResultCode.USER_DOES_NOT_EXIST);
+    }
+    userRepository.save(user);
+    return object;
+  }
 
-	@Override
-	public User getUserByEmail(String email) {
-		return userRepository.getUserByEmail(email);
-	}
+  @Override
+  public ResultObject deleteUser(Long userId) {
+    ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+    userRepository.deleteById(userId);
+    return object;
+  }
 
-	@Override
-	public List<User> getAllUsersForAnOranization(Long organizationId) throws CustomException {
-		return userRepository.getUsersForAnOrganization(organizationId);
-	}
-	
-	@Override
+  @Override
+  public User getUserByEmail(String email) {
+    return userRepository.getUserByEmail(email);
+  }
+
+  @Override
+  public List<User> getAllUsersForAnOranization(Long organizationId) throws CustomException {
+    return userRepository.getUsersForAnOrganization(organizationId);
+  }
+
+  @Override
   public ResultObject uploadProfilePic(MultipartFile file, Long userId)
       throws IOException, CustomException {
     ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
