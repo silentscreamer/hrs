@@ -7,7 +7,7 @@ import com.example.dto.ResultObject;
 import com.example.utils.CustomException;
 
 public interface MessageService {
-	Message getMessageById(String id) throws CustomException;
+	/*Message getMessageById(String id) throws CustomException;
 	ResultObject sendMessage(Message message) throws CustomException;
-	List<Message> getAllMessagesBySender(String senderId) throws CustomException;
+	List<Message> getAllMessagesBySender(String senderId) throws CustomException;*/
 }
