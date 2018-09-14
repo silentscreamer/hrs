@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name="user")
 @JsonIgnoreProperties(value = {"createdOn", "updatedOn"}, allowGetters = true)
 public class User extends BaseDto {
+	
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
