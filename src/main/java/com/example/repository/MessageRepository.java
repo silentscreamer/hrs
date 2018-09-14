@@ -11,4 +11,5 @@ public interface MessageRepository extends MongoRepository<Message, String> {
   Message findBy_id(ObjectId _id);
 
   List<Message> findAllMessagesBySender(ObjectId _id);
+  
 }
