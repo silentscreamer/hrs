@@ -27,4 +27,6 @@ public interface UserService {
 	File getUserProfilePic(Long id)throws CustomException, FileNotFoundException, IOException;
 
 	User getUserByEmail(String email);
+	
+	List<User> getAllUsersForAnOranization(Long organizationId) throws CustomException;
 }
