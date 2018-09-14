@@ -75,7 +75,7 @@ public class OrganizationController {
 	}
 
 	@PutMapping("/{id}")
-	public ResultObject updateUser(@PathVariable(value = "id") Long organizationId,
+	public ResultObject updateOrganization(@PathVariable(value = "id") Long organizationId,
 			@RequestBody Organization organization) {
 		try {
 			return organizationService.updateOrganization(organization);
@@ -88,8 +88,8 @@ public class OrganizationController {
 		}
 	}
 
-	@DeleteMapping("{id")
-	public ResultObject deleteUser(@PathVariable(value = "id") Long organizationId) {
+	@DeleteMapping("{id}")
+	public ResultObject deleteOrganization(@PathVariable(value = "id") Long organizationId) {
 		try {
 			return organizationService.deleteOrganization(organizationId);
 		} catch (CustomException ce) {

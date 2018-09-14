@@ -33,7 +33,6 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	// Get All Users
 	/**
 	 * @return
 	 */
@@ -44,7 +43,6 @@ public class UserController {
 		return object;
 	}
 
-	// Create a new User
 	/**
 	 * @param user
 	 * @return
@@ -66,7 +64,6 @@ public class UserController {
 		}
 	}
 
-	// Get a Single User
 	/**
 	 * @param userId
 	 * @return
@@ -78,7 +75,6 @@ public class UserController {
 		return object;
 	}
 
-	// Update a User
 	/**
 	 * @param user
 	 * @return
@@ -98,7 +94,6 @@ public class UserController {
 		return object;
 	}
 
-	// Delete a User
 	/**
 	 * @param userId
 	 * @return
@@ -106,5 +101,20 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public ResultObject deleteUser(@PathVariable(value = "id") Long userId) {
 		return userService.deleteUser(userId);
+	}
+	
+	@GetMapping("/organization/{id}")
+	public ResultObject getAllUsersForAnOrganization(@PathVariable(value = "id") Long organizationId) {
+		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+		try {
+			object.getData().addAll(userService.getAllUsersForAnOranization(organizationId));
+		} catch(CustomException ce) {
+			log.error("CustomException :", ce);
+			return new ResultObject(false, ce.getResultCode());
+		} catch(Exception e) {
+			log.error("Exception :", e);
+			return new ResultObject(false, ResultCode.SYSTEM_ERROR);
+		}
+		return object;
 	}
 }
