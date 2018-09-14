@@ -51,6 +51,7 @@ public class User extends BaseDto {
 	@NotNull
 	private String password;
 	@Column(name="organization_id")
+	@NotNull
 	private Long organizationId;
 	@Column(name="profile_pic_id")
 	private String profilePicId;
@@ -197,5 +198,12 @@ public class User extends BaseDto {
 	public void setPic_Id(String pic_Id) {
 		this.pic_Id = pic_Id;
 	}
-	
+
+	public Long getOrganizationId() {
+		return organizationId;
+	}
+
+	public void setOrganizationId(Long organizationId) {
+		this.organizationId = organizationId;
+	}
 }

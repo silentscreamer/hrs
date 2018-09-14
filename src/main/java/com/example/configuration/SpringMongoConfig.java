@@ -10,10 +10,10 @@ import com.mongodb.MongoClient;
 
 @Configuration
 public class SpringMongoConfig extends AbstractMongoConfiguration{
-	@Value("localhost:27017")
+	@Value("${spring.data.mongodb.host}")
 	private String mongoAddress; 
 	
-	@Value("test_db")
+	@Value("${spring.data.mongodb.database}")
 	private String mongoDatabase;
 	
 	@Bean
