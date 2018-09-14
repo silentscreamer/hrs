@@ -16,7 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import com.example.constants.ResultCode;
-import com.example.dto.ResultObject;
+import com.example.dto.ReturnValue;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
 import com.example.service.UserService;
@@ -43,16 +43,16 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public ResultObject createUser(User user) throws CustomException {
-    ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+  public ReturnValue createUser(User user) throws CustomException {
+    ReturnValue object = new ReturnValue(true, ResultCode.SUCCESS);
 
     object.getData().add(userRepository.save(user));
     return object;
   }
 
   @Override
-  public ResultObject updateUser(User user) throws CustomException {
-    ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+  public ReturnValue updateUser(User user) throws CustomException {
+    ReturnValue object = new ReturnValue(true, ResultCode.SUCCESS);
     if (getUser(user.getId()) == null) {
       throw new CustomException(ResultCode.USER_DOES_NOT_EXIST);
     }
@@ -61,8 +61,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public ResultObject deleteUser(Long userId) {
-    ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+  public ReturnValue deleteUser(Long userId) {
+    ReturnValue object = new ReturnValue(true, ResultCode.SUCCESS);
     userRepository.deleteById(userId);
     return object;
   }
@@ -78,9 +78,9 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public ResultObject uploadProfilePic(MultipartFile file, Long userId)
+  public ReturnValue uploadProfilePic(MultipartFile file, Long userId)
       throws IOException, CustomException {
-    ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+    ReturnValue object = new ReturnValue(true, ResultCode.SUCCESS);
     String profilePicId =
         gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename()).toHexString();
     User user = userRepository.findById(userId).orElse(null);

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.constants.ResultCode;
-import com.example.dto.ResultObject;
+import com.example.dto.ReturnValue;
 import com.example.entity.User;
 import com.example.service.UserService;
 import com.example.utils.CustomException;
@@ -43,8 +43,8 @@ public class UserController {
    * @return
    */
   @GetMapping("/all")
-  public ResultObject getAllUsers() {
-    ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+  public ReturnValue getAllUsers() {
+    ReturnValue object = new ReturnValue(true, ResultCode.SUCCESS);
     object.getData().addAll(userService.getAllUsers());
     return object;
   }
@@ -54,7 +54,7 @@ public class UserController {
    * @return
    */
   @PostMapping("/add")
-  public ResultObject createUser(@Valid @RequestBody User user) {
+  public ReturnValue createUser(@Valid @RequestBody User user) {
     try {
       if (userService.getUserByEmail(user.getEmail()) != null) {
         throw new CustomException(ResultCode.USER_ALREADY_EXISTS);
@@ -63,10 +63,10 @@ public class UserController {
       return userService.createUser(user);
     } catch (CustomException ce) {
       log.error("CustomException :", ce);
-      return new ResultObject(false, ce.getResultCode());
+      return new ReturnValue(false, ce.getResultCode());
     } catch (Exception e) {
       log.error("Exception :", e);
-      return new ResultObject(false, ResultCode.SYSTEM_ERROR);
+      return new ReturnValue(false, ResultCode.SYSTEM_ERROR);
     }
   }
 
@@ -76,8 +76,8 @@ public class UserController {
    * @return
    */
   @GetMapping("/{id}")
-  public ResultObject getUser(@PathVariable(value = "id") Long userId) {
-    ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
+  public ReturnValue getUser(@PathVariable(value = "id") Long userId) {
+    ReturnValue object = new ReturnValue(true, ResultCode.SUCCESS);
     object.getData().add(userService.getUser(userId));
     return object;
   }
@@ -87,16 +87,16 @@ public class UserController {
    * @return
    */
   @PutMapping("/{id}")
-  public ResultObject updateUser(@RequestBody User user) {
-    ResultObject object;
+  public ReturnValue updateUser(@RequestBody User user) {
+    ReturnValue object;
     try {
       object = userService.updateUser(user);
     } catch (CustomException ce) {
       log.error("CustomException :", ce);
-      return new ResultObject(false, ce.getResultCode());
+      return new ReturnValue(false, ce.getResultCode());
     } catch (Exception e) {
       log.error("Exception :", e);
-      return new ResultObject(false, ResultCode.SYSTEM_ERROR);
+      return new ReturnValue(false, ResultCode.SYSTEM_ERROR);
     }
     return object;
   }
@@ -106,36 +106,36 @@ public class UserController {
    * @return
    */
   @DeleteMapping("/{id}")
-  public ResultObject deleteUser(@PathVariable(value = "id") Long userId) {
+  public ReturnValue deleteUser(@PathVariable(value = "id") Long userId) {
     return userService.deleteUser(userId);
-	}
-	
-	@GetMapping("/organization/{id}")
-	public ResultObject getAllUsersForAnOrganization(@PathVariable(value = "id") Long organizationId) {
-		ResultObject object = new ResultObject(true, ResultCode.SUCCESS);
-		try {
-			object.getData().addAll(userService.getAllUsersForAnOranization(organizationId));
-		} catch(CustomException ce) {
-			log.error("CustomException :", ce);
-			return new ResultObject(false, ce.getResultCode());
-		} catch(Exception e) {
-			log.error("Exception :", e);
-			return new ResultObject(false, ResultCode.SYSTEM_ERROR);
-		}
-		return object;
+  }
+
+  @GetMapping("/organization/{id}")
+  public ReturnValue getAllUsersForAnOrganization(@PathVariable(value = "id") Long organizationId) {
+    ReturnValue object = new ReturnValue(true, ResultCode.SUCCESS);
+    try {
+      object.getData().addAll(userService.getAllUsersForAnOranization(organizationId));
+    } catch (CustomException ce) {
+      log.error("CustomException :", ce);
+      return new ReturnValue(false, ce.getResultCode());
+    } catch (Exception e) {
+      log.error("Exception :", e);
+      return new ReturnValue(false, ResultCode.SYSTEM_ERROR);
+    }
+    return object;
   }
 
   @PostMapping("/uploadProfilePic/{id}")
-  public ResultObject uploadProfilePic(@RequestParam MultipartFile file,
+  public ReturnValue uploadProfilePic(@RequestParam MultipartFile file,
       @PathVariable(value = "id") Long userId) {
     try {
       return userService.uploadProfilePic(file, userId);
     } catch (CustomException ce) {
       log.error("CustomException :", ce);
-      return new ResultObject(false, ce.getResultCode());
+      return new ReturnValue(false, ce.getResultCode());
     } catch (Exception e) {
       log.error("Exception :", e);
-      return new ResultObject(false, ResultCode.SYSTEM_ERROR);
+      return new ReturnValue(false, ResultCode.SYSTEM_ERROR);
     }
   }
 
@@ -146,7 +146,7 @@ public class UserController {
   @GetMapping("/profilePic/{id}")
   public void getUserProfilePic(@PathVariable(value = "id") Long userId,
       HttpServletResponse response) {
-    ResultObject object;
+    ReturnValue object;
     try {
       File file = userService.getUserProfilePic(userId);
       if (file != null) {
