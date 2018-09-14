@@ -16,10 +16,10 @@ import com.example.utils.CustomException;
 @Service
 public class MessageServiceImpl implements MessageService {
 
-	@Autowired
-	MessageRepository messageRepository;
+	/*@Autowired
+	MessageRepository messageRepository;*/
 
-	@Override
+	/*@Override
 	public Message getMessageById(String id) throws CustomException {
 		return messageRepository.findBy_id(new ObjectId(id));
 	}
@@ -34,5 +34,5 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public List<Message> getAllMessagesBySender(String senderId) throws CustomException {
 		return messageRepository.findAllMessagesBySender(new ObjectId(senderId));
-	}
+	}*/
 }
