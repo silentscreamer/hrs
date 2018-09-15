@@ -7,7 +7,10 @@ public enum ResultCode {
 	SYSTEM_ERROR("A System Error Occured", 2),
 	USER_ALREADY_EXISTS("A User with this email alreay exists.", 3),
 	USER_DOES_NOT_EXIST("Specified User does not Exist", 4),
-	ORGANIZATION_DOES_NOT_EXIST("Specified Organization does not Exist", 5);
+	ORGANIZATION_DOES_NOT_EXIST("Specified Organization does not Exist", 5),
+	LEAVE_REQUESTED("Leave request sent",6),
+	LEAVE_DENIED("Your leave is denied",7),
+	LEAVE_APPROAVED("Your leave is approved",8);
 
 	private String message;
 	private Integer code;

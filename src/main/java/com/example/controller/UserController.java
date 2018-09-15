@@ -1,15 +1,21 @@
 package com.example.controller;
 
-import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.example.constants.ResultCode;
 import com.example.dto.ReturnValue;
 import com.example.entity.User;
@@ -142,31 +149,16 @@ public class UserController {
   /**
    * @param userId
    * @param response
+ * @throws IOException 
+ * @throws CustomException 
+ * @throws FileNotFoundException 
    */
   @GetMapping("/profilePic/{id}")
-  public void getUserProfilePic(@PathVariable(value = "id") Long userId,
-      HttpServletResponse response) {
+  public ResponseEntity<InputStreamResource> getUserProfilePic(@PathVariable(value = "id") Long userId,
+      HttpServletResponse response) throws FileNotFoundException, CustomException, IOException {
     ReturnValue object;
-    try {
-      File file = userService.getUserProfilePic(userId);
-      if (file != null) {
-        response.setContentType(Files.probeContentType(file.toPath()));
-        response.addHeader("Content-Disposition", "attachment; filename=" + file.getName());
-
-        OutputStream out = response.getOutputStream();
-        IOUtils.copy(new FileInputStream(file), out);
-        return;
-      } else {
-        response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        return;
-      }
-    } catch (CustomException ce) {
-      log.error("CustomException :", ce);
-      // return new ResultObject(false, ce.getResultCode());
-    } catch (Exception e) {
-      log.error("Exception :", e);
-      // return new ResultObject(false, ResultCode.SYSTEM_ERROR);
-    }
+ 
+        return userService.getUserProfilePic(userId);
   }
 
 }
