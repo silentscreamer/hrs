@@ -30,7 +30,7 @@ public class Leaves extends BaseDto {
 	private String typeOfLeave;
 
 	@NotNull
-	private int ApproverId;
+	private int approverId;
 
 	@NotNull
 	private int numberOfLeaves;
@@ -79,14 +79,6 @@ public class Leaves extends BaseDto {
 		this.typeOfLeave = typeOfLeave;
 	}
 
-	public int getApprover() {
-		return ApproverId;
-	}
-
-	public void setApprover(int approverId) {
-		ApproverId = approverId;
-	}
-
 	public int getNumberOfLeaves() {
 		return numberOfLeaves;
 	}
@@ -110,5 +102,15 @@ public class Leaves extends BaseDto {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public int getApproverId() {
+		return approverId;
+	}
+
+	public void setApproverId(int approverId) {
+		this.approverId = approverId;
+	}
+
+	
 
 }
