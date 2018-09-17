@@ -65,6 +65,13 @@ public class User extends BaseDto {
   private int updated_by;
   @Column(name = "picId")
   private String pic_Id;
+  @NotNull
+  private int numOfEarnedLeaves;
+  @NotNull
+  private int numOfCasualLeaves;
+  @NotNull
+  private int numOfSickLeaves;
+  
 
   public User() {}
 
@@ -203,5 +210,29 @@ public class User extends BaseDto {
 
   public void setOrganizationId(Long organizationId) {
     this.organizationId = organizationId;
-  }
+	}
+
+	public int getNumOfEarnedLeaves() {
+		return numOfEarnedLeaves;
+	}
+
+	public void setNumOfEarnedLeaves(int numOfEarnedLeaves) {
+		this.numOfEarnedLeaves = numOfEarnedLeaves;
+	}
+
+	public int getNumOfCasualLeaves() {
+		return numOfCasualLeaves;
+	}
+
+	public void setNumOfCasualLeaves(int numOfCasualLeaves) {
+		this.numOfCasualLeaves = numOfCasualLeaves;
+	}
+
+	public int getNumOfSickLeaves() {
+		return numOfSickLeaves;
+	}
+
+	public void setNumOfSickLeaves(int numOfSickLeaves) {
+		this.numOfSickLeaves = numOfSickLeaves;
+	}
 }

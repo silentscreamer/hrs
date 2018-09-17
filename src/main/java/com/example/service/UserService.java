@@ -1,9 +1,9 @@
 package com.example.service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.dto.ReturnValue;
 import com.example.entity.User;
@@ -22,7 +22,7 @@ public interface UserService {
 
   ReturnValue uploadProfilePic(MultipartFile file, Long userId) throws IOException, CustomException;
 
-  File getUserProfilePic(Long id) throws CustomException, FileNotFoundException, IOException;
+  ResponseEntity<InputStreamResource> getUserProfilePic(Long id) throws CustomException, IOException;
 
   User getUserByEmail(String email);
 
