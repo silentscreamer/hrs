@@ -1,16 +1,6 @@
 package com.example.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.example.constants.ResultCode;
 import com.example.dto.ReturnValue;
 import com.example.entity.User;
 import com.example.service.UserService;
 import com.example.utils.CustomException;
 
-/**
- * @author salman.kazmi
- *
- */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -149,16 +134,20 @@ public class UserController {
   /**
    * @param userId
    * @param response
- * @throws IOException 
- * @throws CustomException 
- * @throws FileNotFoundException 
    */
   @GetMapping("/profilePic/{id}")
-  public ResponseEntity<InputStreamResource> getUserProfilePic(@PathVariable(value = "id") Long userId,
-      HttpServletResponse response) throws FileNotFoundException, CustomException, IOException {
-    ReturnValue object;
- 
-        return userService.getUserProfilePic(userId);
+  public ResponseEntity<InputStreamResource> getUserProfilePic(
+      @PathVariable(value = "id") Long userId) {
+    try {
+      return userService.getUserProfilePic(userId);
+    } catch (CustomException ce) {
+      log.error("CustomException :", ce);
+      // return new ReturnValue(false, ce.getResultCode());
+    } catch (Exception e) {
+      log.error("Exception :", e);
+      // return new ReturnValue(false, ResultCode.SYSTEM_ERROR);
+    }
+    return null;
   }
 
 }
