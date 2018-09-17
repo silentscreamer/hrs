@@ -1,12 +1,14 @@
 package com.example.entity;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,7 +27,7 @@ public class User extends BaseDto {
 
   private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   @Column(name = "title")
   private String title;
@@ -65,14 +67,10 @@ public class User extends BaseDto {
   private int updated_by;
   @Column(name = "picId")
   private String pic_Id;
-  @NotNull
-  private int numOfEarnedLeaves;
-  @NotNull
-  private int numOfCasualLeaves;
-  @NotNull
-  private int numOfSickLeaves;
   
-
+  @OneToOne(mappedBy="user",cascade=CascadeType.ALL)  
+  private LeaveDetail leaveDetail;
+  
   public User() {}
 
   public User(@NotNull String firstName, String lastName, @NotNull String username,
@@ -212,27 +210,11 @@ public class User extends BaseDto {
     this.organizationId = organizationId;
 	}
 
-	public int getNumOfEarnedLeaves() {
-		return numOfEarnedLeaves;
-	}
+  public LeaveDetail getLeaveDetail() {
+    return leaveDetail;
+  }
 
-	public void setNumOfEarnedLeaves(int numOfEarnedLeaves) {
-		this.numOfEarnedLeaves = numOfEarnedLeaves;
-	}
-
-	public int getNumOfCasualLeaves() {
-		return numOfCasualLeaves;
-	}
-
-	public void setNumOfCasualLeaves(int numOfCasualLeaves) {
-		this.numOfCasualLeaves = numOfCasualLeaves;
-	}
-
-	public int getNumOfSickLeaves() {
-		return numOfSickLeaves;
-	}
-
-	public void setNumOfSickLeaves(int numOfSickLeaves) {
-		this.numOfSickLeaves = numOfSickLeaves;
-	}
+  public void setLeaveDetail(LeaveDetail leaveDetail) {
+    this.leaveDetail = leaveDetail;
+  }
 }

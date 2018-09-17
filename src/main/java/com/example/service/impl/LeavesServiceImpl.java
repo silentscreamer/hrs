@@ -39,13 +39,13 @@ public class LeavesServiceImpl implements LeavesService {
       LeaveType leaveType = leave.getTypeOfLeave();
       switch (String.valueOf(leaveType)) {
         case "EARNED":
-          user.setNumOfEarnedLeaves(user.getNumOfEarnedLeaves() - leave.getNumberOfLeaves());
+          user.getLeaveDetail().setNumOfEarnedLeaves(user.getLeaveDetail().getNumOfEarnedLeaves() - leave.getNumberOfLeaves());
           break;
         case "CASUAL":
-          user.setNumOfCasualLeaves(user.getNumOfCasualLeaves() - leave.getNumberOfLeaves());
+          user.getLeaveDetail().setNumOfCasualLeaves(user.getLeaveDetail().getNumOfCasualLeaves() - leave.getNumberOfLeaves());
           break;
         case "SICK":
-          user.setNumOfSickLeaves(user.getNumOfSickLeaves() - leave.getNumberOfLeaves());
+          user.getLeaveDetail().setNumOfSickLeaves(user.getLeaveDetail().getNumOfSickLeaves() - leave.getNumberOfLeaves());
           break;
       }
       userRepo.save(user);

@@ -3,6 +3,7 @@ package com.example.entity;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,17 +12,19 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.example.constants.LeaveType;
 import com.example.constants.Status;
 import com.example.dto.BaseDto;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class UserLeave extends BaseDto {
 
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @NotNull
@@ -53,7 +56,7 @@ public class UserLeave extends BaseDto {
   @Temporal(TemporalType.TIMESTAMP)
   @LastModifiedDate
   private Date updatedOn;
-  private int updatedBy;
+  private int updated_by;
 
   @NotNull
   private Status status;
@@ -150,12 +153,12 @@ public class UserLeave extends BaseDto {
     this.updatedOn = updatedOn;
   }
 
-  public int getUpdatedBy() {
-    return updatedBy;
+  public int getUpdated_by() {
+    return updated_by;
   }
 
-  public void setUpdatedBy(int updatedBy) {
-    this.updatedBy = updatedBy;
+  public void setUpdated_by(int updated_by) {
+    this.updated_by = updated_by;
   }
 
   public Status getStatus() {

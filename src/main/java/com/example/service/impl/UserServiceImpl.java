@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.example.constants.ResultCode;
 import com.example.dto.ReturnValue;
+import com.example.entity.LeaveDetail;
 import com.example.entity.User;
 import com.example.repository.UserRepository;
 import com.example.service.UserService;
@@ -43,7 +44,9 @@ public class UserServiceImpl implements UserService {
   @Override
   public ReturnValue createUser(User user) throws CustomException {
     ReturnValue object = new ReturnValue(true, ResultCode.SUCCESS);
-
+    /*LeaveDetail leave = new LeaveDetail();
+    leave.setUser(user);
+    user.getLeaveDetail().setUser(user);*/
     object.getData().add(userRepository.save(user));
     return object;
   }
